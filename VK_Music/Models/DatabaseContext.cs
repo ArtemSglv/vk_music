@@ -7,7 +7,7 @@ namespace VK_Music.Models
         public DatabaseContext():base("DatabaseContext")
         { }
 
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Photo> PhotoList { get; set; }
     }
 }

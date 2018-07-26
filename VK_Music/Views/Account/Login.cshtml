@@ -1,0 +1,54 @@
+﻿@model VK_Music.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+@section MyScript {
+    <script type="text/javascript">
+        function ShowHidden() {
+            tbox = document.getElementById("my_textbox");
+            if (tbox.style.display == "inline") {
+                tbox.style.display = 'none';
+            }
+            else {
+                tbox.style.display = 'inline';
+            }
+
+        };
+    </script>
+}
+
+<h3>Привет! Это страница авторизации!</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<div>
+    @*<label>Login</label>
+        @Html.TextBox("Login")*@
+
+        @Html.LabelFor(model => model.Login)
+        @Html.EditorFor(model => model.Login)
+        @Html.ValidationMessageFor(model => model.Login)
+    </div>
+    <br />
+    <div>
+        @*<label>Password</label>
+        @Html.Password("Password")*@
+
+        @Html.LabelFor(model => model.Password)
+        @Html.EditorFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+    <br />
+    @*<div>
+        <label>2х факторная авторизация</label>
+        @Html.CheckBox("Checkbox", new { onClick = "ShowHidden()" })
+    </div>
+    <br />
+    <div>
+        @Html.TextBox("Token", "", new { id = "my_textbox", style = "display:none" })
+    </div>*@
+    <br />
+    <input type="submit" name="login_but" value="Login">
+    }
