@@ -5,6 +5,7 @@ using System.Web;
 
 namespace VK_Music.Models
 {
+    // route to photo: /Download/<id_user>/<id_album>/<id_photo>
     public class Photo
     {
         public long PhotoId { get; set; }

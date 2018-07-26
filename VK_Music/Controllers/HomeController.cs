@@ -39,6 +39,11 @@ namespace VK_Music.Controllers
             {
                  photo_list= db.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault().PhotoList;
             }
+            
+            //if (photo_list == null || photo_list.Count==0)
+            //{
+            //    return Content("Список фотографий пуст!");
+            //}
 
             return View("SavedPhoto", photo_list);
         }

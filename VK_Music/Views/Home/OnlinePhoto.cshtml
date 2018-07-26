@@ -3,27 +3,30 @@
 @{
     ViewBag.Title = "TrackList";
 }
+@section MyScript {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/Scripts/sender.js"></script>
+}
 
 <h2>My Photo</h2>
-<p>Token is <b>@ViewBag.Token</b></p>
 
 @using (@Html.BeginForm("Download", "Home"))
 {
-<table>
-    <tr>
-        <th>Photo</th>
-        <th>Likes</th>
-        <th>Download?</th>
-    </tr>
-    @foreach (var p in Model)
-    {
+    <table>
         <tr>
-            <td> <img src="@p.photo.Path" /></td>
-            <td> @p.photo.Likes</td>
-            <td> @Html.CheckBoxFor(m => p.isChecked)</td>
+            <th>Photo</th>
+            <th>Likes</th>
+            <th>Download?</th>
         </tr>
-    }
-</table>
-<br/>
-<input type="submit" name="Download" value="Download selected" />
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td> <img src="@p.photo.Path" /></td>
+                <td> @p.photo.Likes</td>
+                <td> @Html.CheckBoxFor(m => p.isChecked)</td>
+            </tr>
+        }
+    </table>
+    <br />
+    <input type="button" onclick="Send()" name="Download" value="Download selected" />
 }
