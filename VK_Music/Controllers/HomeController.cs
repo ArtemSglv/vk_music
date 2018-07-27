@@ -17,6 +17,7 @@ namespace VK_Music.Controllers
     {
         //private DatabaseContext db = new DatabaseContext();
         private readonly VkApi vk = new VkApi();
+        private VkCollection<VkNet.Model.Attachments.Photo> photo_list;
 
         // показывает список сохранненых фото
         [Authorize]
@@ -26,7 +27,7 @@ namespace VK_Music.Controllers
             {
                 vk.Authorize(new ApiAuthParams { AccessToken = db.Users.Where(u => u.Email == HttpContext.User.Identity.Name).FirstOrDefault().Tocken });
             }
-            var photo_list = vk.Photo.GetAll(new PhotoGetAllParams { Count = 200, Extended = true, PhotoSizes = true, NoServiceAlbums = false });
+            photo_list = vk.Photo.GetAll(new PhotoGetAllParams { Count = 200, Extended = true, PhotoSizes = true, NoServiceAlbums = false });
             return View("OnlinePhoto", FillList(photo_list));
         }
 
@@ -48,9 +49,15 @@ namespace VK_Music.Controllers
             return View("SavedPhoto", photo_list);
         }
 
-        [ChildActionOnly]
+        [HttpPost]
         public ActionResult Download(List<string> list)
         {
+            var vk_photo = vk.Photo.GetAll(new PhotoGetAllParams{Count = 200, Extended = true, PhotoSizes = true, NoServiceAlbums = false});
+            foreach(var l in list)
+            {
+                
+            }
+            
             return View();
         }
 
@@ -64,7 +71,8 @@ namespace VK_Music.Controllers
                 row.photo.PhotoId = (long)p.Id;
                 row.photo.Title = p.Text;
                 row.photo.Likes = p.Likes.Count;
-                row.photo.Path = p.Sizes.First().Url.AbsoluteUri;
+                row.photo.Path = p.Sizes.First().Url.AbsoluteUri; // нужно выбирать размер нормальный См. описание API VK
+                row.photo.AlbumId =(long)p.AlbumId;                
 
                 list.Add(row);
             }

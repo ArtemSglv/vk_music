@@ -21,12 +21,12 @@
         @foreach (var p in Model)
         {
             <tr>
-                <td> <img src="@p.photo.Path" /></td>
+                <td> <span type="hidden" id="@p.photo.PhotoId"/><img src="@p.photo.Path" /></td>
                 <td> @p.photo.Likes</td>
                 <td> @Html.CheckBoxFor(m => p.isChecked)</td>
             </tr>
         }
     </table>
     <br />
-    <input type="button" onclick="Send(/Home/Download)" name="Download" value="Download selected" />
+    <input type="button" onclick="Send('/Home/Download')" name="Download" value="Download selected" />
 }
