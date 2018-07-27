@@ -49,7 +49,7 @@ namespace VK_Music.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult Download(List<PhotoList> list)
+        public ActionResult Download(List<string> list)
         {
             return View();
         }
