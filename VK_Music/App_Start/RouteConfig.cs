@@ -16,7 +16,7 @@ namespace VK_Music
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "ShowSaved", id = UrlParameter.Optional }
+                defaults: new { controller = "Album", action = "ShowAllAlbums", id = UrlParameter.Optional }
             );
         }
     }

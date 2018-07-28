@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VK_Music.Models.PhotoList>
+﻿@model IEnumerable<VkNet.Model.Attachments.Photo>
 
 @{
     ViewBag.Title = "TrackList";
@@ -21,9 +21,9 @@
         @foreach (var p in Model)
         {
             <tr>
-                <td> <span type="hidden" id="@p.photo.PhotoId"/><img src="@p.photo.Path" /></td>
-                <td> @p.photo.Likes</td>
-                <td> @Html.CheckBoxFor(m => p.isChecked)</td>
+                <td> @*<span type="hidden" id="@p.Id"/>*@<img src="@p.Sizes.First().Url.AbsoluteUri" /></td>
+                <td> @p.Likes.Count</td>
+                <td> @Html.CheckBox(p.Id.ToString())</td>
             </tr>
         }
     </table>

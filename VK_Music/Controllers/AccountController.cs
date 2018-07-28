@@ -76,7 +76,7 @@ namespace VK_Music.Controllers
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Login, true);
-                    return RedirectToAction("ShowSaved", "Home");
+                    return RedirectToAction("ShowAllAlbums", "Album");
                 }
                 //else
                 //{

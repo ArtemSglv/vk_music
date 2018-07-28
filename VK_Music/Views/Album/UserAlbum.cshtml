@@ -1,0 +1,26 @@
+﻿@model VK_Music.Models.Album
+
+@{
+    ViewBag.Title = "Album "+Model.Title;
+}
+
+<h2>Album @Model.Title</h2>
+
+@Html.ActionLink("К списку альбомов","ShowAllAlbums","Album")
+<br />
+<table>
+    <tr>
+        <th>Photo</th>
+        <th>Likes</th>
+    </tr>
+    @foreach (var p in Model.Photos)
+    {
+        <tr>
+            <td>
+                <img src="@p.Path" />
+            </td>
+            <td>@p.Likes</td>
+        </tr>
+    }
+</table>
+

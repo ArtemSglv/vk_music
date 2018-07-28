@@ -1,0 +1,22 @@
+﻿@model IEnumerable<VK_Music.Models.Album>
+
+@{
+    ViewBag.Title = "My Saved Albums";
+}
+
+<h2>Мои сохраненные альбомы!</h2>
+
+@if (Model == null || Model.Count() == 0)
+{
+    <h3>Альбомов нет!</h3>
+    <button>@Html.ActionLink("Скачать фотографии", "ShowOnline", "Album")</button>
+}
+else
+{
+    <ul>
+        @foreach (var p in Model)
+        {
+            <li>@Html.ActionLink(p.Title, "ShowAlbum", "Album", new { id = p.Id }, null)</li>
+        }
+    </ul>
+}

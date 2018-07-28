@@ -1,19 +1,25 @@
 function Send(action_url) {
     var arr = new Array();
-    $("tr").each(function (){  
+    /*$("tr").each(function () {
         var tr = $(this);
-        //console.log(tr.find('input[type=checkbox]').prop('checked'));
-        if(tr.find('input[type=checkbox]').prop('checked'))
-            {
-                //console.log(tr.find('img').attr('src'));
-                arr.push(tr.find('span').attr('id'));
-            }     
-});
+
+        if (tr.find('input[type=checkbox]').prop('checked')) {
+            //arr.push(tr.find('span').attr('id'));
+        }
+    });*/
+
+    $('input[type=checkbox]').each(function () {
+        if ($(this).prop('checked')) {
+            arr.push($(this).attr('name'));
+        }
+    }
+
     $.ajax({
-        url:action_url,
-        data:{ list: arr},
-        type:'post',
-        success:function(data){ alert(data);
-                              }
+        url: action_url,
+        data: { list: arr },
+        type: 'post',
+        success: function (data) {
+            alert(data);
+        }
     });
 }

@@ -12,6 +12,9 @@ namespace VK_Music.Models
         public long Id { get; set; }
         public string Title { get; set; }
 
-        public List<Photo> Photo { get; set; }
+        public List<Photo> Photos { get; set; }
+
+        public long UserId { get; set; }
+        public User User { get; set; }
     }
 }

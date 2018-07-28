@@ -17,7 +17,8 @@ namespace VK_Music.Models
         public string Name { get; set; }
         public string Lastname { get; set; }        
 
-        public List<Photo> PhotoList { get; set; }
+        //public List<Photo> PhotoList { get; set; }
+        //public int AlbumId { get; set; }
         public List<Album> Albums { get; set; }
     }
 }

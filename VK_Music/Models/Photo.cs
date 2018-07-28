@@ -14,5 +14,6 @@ namespace VK_Music.Models
         public int Likes { get; set; }
 
         public long AlbumId { get; set; }
+        public Album Album { get; set; }
     }
 }
