@@ -5,14 +5,16 @@
 }
 
 <h2>Мои сохраненные альбомы!</h2>
+<div align="right">Привет, @User.Identity.Name! @Html.ActionLink("[Выйти]","Logoff","Account")</div>
 
+<button>@Html.ActionLink("Скачать фотографии", "ShowOnline", "Album")</button>
 @if (Model == null || Model.Count() == 0)
 {
     <h3>Альбомов нет!</h3>
-    <button>@Html.ActionLink("Скачать фотографии", "ShowOnline", "Album")</button>
 }
 else
 {
+    
     <ul>
         @foreach (var p in Model)
         {

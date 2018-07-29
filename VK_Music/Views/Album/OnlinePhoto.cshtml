@@ -5,13 +5,13 @@
 }
 @section MyScript {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="~/Scripts/sender.js"></script>
+    <script src="~/Scripts/sender1.js"></script>
 }
 
 <h2>My Photo</h2>
-
-@using (@Html.BeginForm("Download", "Home"))
-{
+<div align="right">Привет, @User.Identity.Name! @Html.ActionLink("[Выйти]", "Logoff", "Account")</div>
+@*@using (@Html.BeginForm("Download", "Home"))
+{*@
     <table>
         <tr>
             <th>Photo</th>
@@ -28,5 +28,5 @@
         }
     </table>
     <br />
-    <input type="button" onclick="Send('/Home/Download')" name="Download" value="Download selected" />
-}
+    <input type="button" onclick="Send('/Album/Download')" name="Download" value="Download selected" />
+@*}*@

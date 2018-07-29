@@ -12,7 +12,7 @@ function Send(action_url) {
         if ($(this).prop('checked')) {
             arr.push($(this).attr('name'));
         }
-    }
+    });
 
     $.ajax({
         url: action_url,

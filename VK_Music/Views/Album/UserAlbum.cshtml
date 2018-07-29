@@ -6,6 +6,8 @@
 
 <h2>Album @Model.Title</h2>
 
+<div align="right">Привет, @User.Identity.Name! @Html.ActionLink("[Выйти]", "Logoff", "Account")</div>
+
 @Html.ActionLink("К списку альбомов","ShowAllAlbums","Album")
 <br />
 <table>
