@@ -19,7 +19,7 @@ function Send(action_url) {
         data: { list: arr },
         type: 'post',
         success: function (data) {
-            alert(data);
+            window.location.reload();
         }
     });
 }

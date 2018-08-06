@@ -5,16 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using VK_Music.Models;
-using VkNet;
-using VkNet.Enums.Filters;
-using VkNet.Model.RequestParams;
-using VkNet.Utils;
+using VK_Music.Logic;
 
 namespace VK_Music.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly VkApi vk = new VkApi();
+        private readonly IVKManager vk_mngr = new VKManager();
+
         // GET: Account
         public ActionResult Login()
         {
@@ -30,16 +28,10 @@ namespace VK_Music.Controllers
 
                 User user = null;
                 // авторизация в вк
-                vk.Authorize(new VkNet.Model.ApiAuthParams
-                {
-                    ApplicationId = 6640902,
-                    Login = model.Login,
-                    Password = model.Password,
-                    Settings = Settings.All
-                });
-                //костыли
-                var ids = new long[] { (long)vk.UserId };
-                var vk_user = vk.Users.Get(ids)[0];
+                vk_mngr.Authorize(model.Login, model.Password);
+
+                //берем авторизованного пользователя
+                var vk_user = vk_mngr.GetUserById(vk_mngr.UserId);
 
                 // поиск пользователя в бд
                 using (DatabaseContext db = new DatabaseContext())
@@ -48,7 +40,7 @@ namespace VK_Music.Controllers
                     user = db.Users.FirstOrDefault(u => u.Id == vk_user.Id);
                     if (user != null)
                     {
-                        user.Tocken = vk.Token;
+                        user.Tocken = vk_mngr.Token;
                         db.SaveChanges();
                     }
                 }
@@ -58,14 +50,15 @@ namespace VK_Music.Controllers
                 {
                     using (DatabaseContext db = new DatabaseContext())
                     {
+                        // тут наверно нужен вызов getUserById
                         db.Users.Add(new User
                         {
                             Id = vk_user.Id,
-                            Name = vk_user.FirstName,
-                            Lastname = vk_user.LastName,
+                            Name = vk_user.Name,
+                            Lastname = vk_user.Lastname,
                             Email = model.Login,
                             Password = model.Password,
-                            Tocken = vk.Token
+                            Tocken = vk_mngr.Token
                         });
                         db.SaveChanges();
 
