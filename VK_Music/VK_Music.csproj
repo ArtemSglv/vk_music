@@ -207,10 +207,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\VKMusic.mdf" />
-    <Content Include="App_Data\VKMusic_log.ldf">
-      <DependentUpon>VKMusic.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -255,6 +251,7 @@
     <Content Include="Views\Album\UserAlbum.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Downloads\" />
     <Folder Include="Views\Photo\" />
   </ItemGroup>

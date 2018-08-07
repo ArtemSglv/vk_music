@@ -21,9 +21,9 @@
         @foreach (var p in Model)
         {
             <tr>
-                <td> @*<span type="hidden" id="@p.Id"/>*@<img src="@p.Sizes.First().Url.AbsoluteUri" /></td>
-                <td> @p.Likes.Count</td>
-                <td> @Html.CheckBox(p.Id.ToString())</td>
+                <td> @*<span type="hidden" id="@p.Id"/>*@<img src="@p.Path" /></td>
+                <td> @p.Likes</td>
+                <td> @Html.CheckBox(p.PhotoId.ToString())</td>
             </tr>
         }
     </table>

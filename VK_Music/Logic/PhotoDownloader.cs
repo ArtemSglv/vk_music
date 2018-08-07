@@ -29,7 +29,7 @@ namespace VK_Music
         public async Task DownloadAsync(List<string> id_list)
         {
             VKAuthorize();
-            await Download(vk_mngr.GetAllPhoto());
+            await Download(vk_mngr.GetAllPhoto().FindAll(p=>id_list.Contains(p.PhotoId.ToString())));
         }
         private async Task Download(List<Photo> toDownloadPhoto)
         {
@@ -63,16 +63,7 @@ namespace VK_Music
                 // что если альбомы уже есть???
                 if (db.Albums.Count() == 0 || db.Albums.FirstOrDefault(a => a.Id == p.AlbumId) == null)
                 {
-                    var a = new Album();
-                    a.Id = p.AlbumId;
-                    //костыли(((
-                    var ids = new List<long>();
-                    ids.Add(a.Id);
-
-                    a.Title = vk.Photo.GetAlbums(new PhotoGetAlbumsParams { AlbumIds = ids, Count = 1, }).FirstOrDefault(al => al.Id == p.AlbumId).Title;
-                    a.UserId = Convert.ToInt64(user_dir);
-
-                    db.Albums.Add(a);
+                    db.Albums.Add(vk_mngr.GetAlbumById(p.AlbumId));
                 }
 
                 db.PhotoList.Add(p);

@@ -16,8 +16,20 @@ namespace VK_Music.Controllers
         [Authorize]
         public ActionResult ShowOnline()
         {
+            var result_list = new List<Photo>();
             VKAuthorize();
-            return View("OnlinePhoto", vk_mngr.GetAllPhoto());
+            using (DatabaseContext db = new DatabaseContext())
+            {
+                vk_mngr.GetAllPhoto().ForEach(p => {
+                    if (db.PhotoList.Find(p.PhotoId)==null)
+                    {
+                        result_list.Add(p);
+                    }
+                });
+                if (result_list.Count == 0)
+                    result_list = vk_mngr.GetAllPhoto();
+            }
+            return View("OnlinePhoto", result_list);
         }
 
         [Authorize]
@@ -27,7 +39,7 @@ namespace VK_Music.Controllers
 
             using (DatabaseContext db = new DatabaseContext())
             {
-                albums = db.Albums.Include(a=>a.Photos).Where(u => u.User.Email == User.Identity.Name).ToList();
+                albums = db.Albums.Include(a => a.Photos).Where(u => u.User.Email == User.Identity.Name).ToList();
             }
             return View("UserSavedAlbums", albums);
         }
@@ -39,7 +51,7 @@ namespace VK_Music.Controllers
 
             using (DatabaseContext db = new DatabaseContext())
             {
-                album = db.Albums.Include(a=>a.Photos).FirstOrDefault(u => u.Id == id);
+                album = db.Albums.Include(a => a.Photos).FirstOrDefault(u => u.Id == id);
             }
             return View("UserAlbum", album);
         }
@@ -49,9 +61,9 @@ namespace VK_Music.Controllers
         [Authorize]
         public async Task Download(List<string> list) // лист содержит id фоток
         {
-            PhotoDownloader downloader = new PhotoDownloader(Server,User);
+            PhotoDownloader downloader = new PhotoDownloader(Server, User);
             await downloader.DownloadAsync(list);
-        }        
+        }
 
         private void VKAuthorize()
         {
